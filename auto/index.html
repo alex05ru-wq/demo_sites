@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Автосервис «Поршень» — ТО, диагностика, шиномонтаж</title>
+<meta name="description" content="Техобслуживание, диагностика и шиномонтаж легковых авто. Запись онлайн на удобное время, запчасти в наличии.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Exo+2:wght@600;800&family=Roboto:wght@400;500;700&display=swap">
+<style>
+/* Автосервис: тёмно-синий комбинезон, бетонный пол и сигнальный красный. Акцент — колесо с протектором. */
+:root{
+  --navy:#12243F; --navy-2:#1C3459; --concrete:#E7E8EA; --white:#FFFFFF; --red:#D52B1E;
+  --ink:#16191D; --muted:#5A6270; --err:#B3261E;
+  --display:"Exo 2",system-ui,sans-serif; --text:"Roboto",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--concrete);color:var(--ink);font:400 17px/1.6 var(--text)}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--red);outline-offset:3px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+
+.hero{background:var(--navy);color:var(--white);overflow:hidden;position:relative}
+.top{display:flex;justify-content:space-between;align-items:center;padding:22px 0;border-bottom:1px solid rgba(255,255,255,.12);gap:16px;flex-wrap:wrap}
+.logo{font:800 26px/1 var(--display);text-decoration:none;letter-spacing:.01em}
+.logo i{font-style:normal;color:var(--red)}
+.top .tel{font-weight:700;text-decoration:none}
+.hero-in{display:grid;grid-template-columns:1.2fr 1fr;gap:32px;align-items:center;padding:64px 0 80px}
+h1{font:800 clamp(38px,5.4vw,70px)/1.02 var(--display);margin:0 0 22px;text-transform:none}
+.lead{font-size:19px;color:#C5CFDE;max-width:42ch;margin:0 0 32px}
+.btn{display:inline-block;background:var(--red);color:var(--white);font:700 17px/1 var(--text);
+  padding:18px 30px;border-radius:2px;border:0;cursor:pointer;text-decoration:none}
+.btn:hover{background:#B82418}
+.badges{display:flex;gap:12px;flex-wrap:wrap;margin-top:32px}
+.badges span{border:1px solid rgba(255,255,255,.3);padding:8px 14px;border-radius:2px;font-size:15px}
+.wheel svg{width:115%;max-width:520px;display:block;margin-right:-15%;margin-left:auto}
+.wheel .spin{transform-origin:250px 250px;animation:spin 12s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.wheel .spin{animation:none}html{scroll-behavior:auto}}
+
+section{padding:88px 0}
+h2{font:800 clamp(30px,3.8vw,44px)/1.05 var(--display);margin:0 0 12px}
+.sub{color:var(--muted);margin:0 0 36px;max-width:56ch}
+
+table{width:100%;border-collapse:collapse;background:var(--white)}
+th,td{text-align:left;padding:16px 18px;border-bottom:1px solid #DDE0E4}
+th{font:600 14px/1 var(--text);color:var(--muted);background:#F4F5F6}
+td.p{font-weight:700;white-space:nowrap}
+td.t{color:var(--muted);white-space:nowrap}
+tr:last-child td{border-bottom:0}
+.tbl{overflow-x:auto;border:1px solid #D3D7DC}
+
+.why{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.why div{background:var(--white);padding:26px;border-left:4px solid var(--red)}
+.why b{display:block;font:600 22px/1.2 var(--display);margin-bottom:6px}
+.why p{margin:0;color:var(--muted)}
+
+#zapis{background:var(--white)}
+.book{display:grid;grid-template-columns:1.2fr 1fr;gap:56px;align-items:start}
+form{display:grid;gap:16px}
+label{display:grid;gap:6px;font-weight:500;font-size:15px}
+input,select,textarea{font:400 17px/1.4 var(--text);color:var(--ink);background:#F4F5F6;
+  border:2px solid transparent;border-radius:2px;padding:13px 15px;width:100%}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--navy);background:var(--white)}
+textarea{min-height:84px;resize:vertical}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.hp{position:absolute;left:-9999px}
+.err{color:var(--err);font-size:14px;margin:0}
+.agree{font-size:13px;color:var(--muted);margin:0}
+form .btn{justify-self:start}
+.done{background:#F4F5F6;border-left:4px solid var(--red);padding:26px}
+.done h3{font:800 28px/1.1 var(--display);margin:0 0 8px}
+.done p{margin:0 0 14px}
+.again{background:none;border:0;padding:0;font:700 16px var(--text);text-decoration:underline;cursor:pointer;color:var(--navy)}
+.side{background:var(--navy);color:var(--white);padding:30px}
+.side h3{font:800 24px/1.1 var(--display);margin:0 0 16px}
+.side p{margin:0 0 14px}
+.side p span{display:block;font-size:14px;color:#9FB0C8}
+footer{background:var(--ink);color:#9AA3AF;font-size:14px;padding:26px 0}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+
+@media (max-width:860px){
+  .hero-in,.book{grid-template-columns:1fr}
+  .wheel{order:-1}.wheel svg{width:180px;margin:0}
+  .why{grid-template-columns:1fr}
+  .hero-in{padding:36px 0 64px}
+}
+@media (max-width:520px){.row2{grid-template-columns:1fr}section{padding:64px 0}th:nth-child(3),td.t{display:none}}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="wrap">
+    <div class="top"><a class="logo" href="#">ПОРШЕН<i>Ь</i></a><a class="tel" href="tel:+79000000004">+7 900 000-00-04</a></div>
+    <div class="hero-in">
+      <div>
+        <h1>Обслужим машину, пока вы пьёте кофе в зоне ожидания</h1>
+        <p class="lead">ТО, диагностика и шиномонтаж легковых авто. Запчасти в наличии, показываем старые детали и согласуем каждую работу до начала.</p>
+        <a class="btn" href="#zapis">Записаться на сервис</a>
+        <div class="badges"><span>Гарантия 12 месяцев</span><span>Без очереди по записи</span><span>Оплата картой</span></div>
+      </div>
+      <div class="wheel" aria-hidden="true">
+        <svg viewBox="0 0 500 500">
+          <g class="spin">
+            <circle cx="250" cy="250" r="240" fill="#0B1628"/>
+            <g fill="#1C3459">
+              <rect x="238" y="8" width="24" height="44" rx="4"/>
+              <rect x="238" y="8" width="24" height="44" rx="4" transform="rotate(30 250 250)"/>
+              <rect x="238" y="8" width="24" height="44" rx="4" transform="rotate(60 250 250)"/>
+              <rect x="238" y="8" width="24" height="44" rx="4" transform="rotate(90 250 250)"/>
+              <rect x="238" y="8" width="24" height="44" rx="4" transform="rotate(120 250 250)"/>
+              <rect x="238" y="8" width="24" height="44" rx="4" transform="rotate(150 250 250)"/>
+              <rect x="238" y="8" width="24" height="44" rx="4" transform="rotate(180 250 250)"/>
+              <rect x="238" y="8" width="24" height="44" rx="4" transform="rotate(210 250 250)"/>
+              <rect x="238" y="8" width="24" height="44" rx="4" transform="rotate(240 250 250)"/>
+              <rect x="238" y="8" width="24" height="44" rx="4" transform="rotate(270 250 250)"/>
+              <rect x="238" y="8" width="24" height="44" rx="4" transform="rotate(300 250 250)"/>
+              <rect x="238" y="8" width="24" height="44" rx="4" transform="rotate(330 250 250)"/>
+            </g>
+            <circle cx="250" cy="250" r="168" fill="#C9CED6"/>
+            <circle cx="250" cy="250" r="150" fill="#9AA4B2"/>
+            <g fill="#12243F">
+              <path d="M250 120 l26 92 h-52z"/>
+              <path d="M250 120 l26 92 h-52z" transform="rotate(72 250 250)"/>
+              <path d="M250 120 l26 92 h-52z" transform="rotate(144 250 250)"/>
+              <path d="M250 120 l26 92 h-52z" transform="rotate(216 250 250)"/>
+              <path d="M250 120 l26 92 h-52z" transform="rotate(288 250 250)"/>
+            </g>
+            <circle cx="250" cy="250" r="44" fill="#D52B1E"/>
+            <circle cx="250" cy="250" r="16" fill="#12243F"/>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section id="uslugi">
+    <div class="wrap">
+      <h2>Услуги и цены</h2>
+      <p class="sub">Цены за работу без учёта запчастей. Точную стоимость назовём после осмотра — до начала ремонта.</p>
+      <div class="tbl">
+        <table>
+          <thead><tr><th>Работа</th><th>Цена</th><th>Время</th></tr></thead>
+          <tbody>
+            <tr><td>Замена масла и фильтра</td><td class="p">от 900 ₽</td><td class="t">30 мин</td></tr>
+            <tr><td>Компьютерная диагностика</td><td class="p">1 200 ₽</td><td class="t">40 мин</td></tr>
+            <tr><td>Шиномонтаж, 4 колеса R13–R16</td><td class="p">2 000 ₽</td><td class="t">45 мин</td></tr>
+            <tr><td>Замена тормозных колодок (ось)</td><td class="p">от 1 500 ₽</td><td class="t">1 час</td></tr>
+            <tr><td>Развал-схождение</td><td class="p">1 800 ₽</td><td class="t">1 час</td></tr>
+            <tr><td>Плановое ТО</td><td class="p">от 4 500 ₽</td><td class="t">2–3 часа</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <h2>Почему к нам возвращаются</h2>
+      <p class="sub">Сервис для тех, кто не хочет разбираться в машинах, но хочет понимать, за что платит.</p>
+      <div class="why">
+        <div><b>Видео в чат</b><p>Снимаем, что нашли при осмотре, и присылаем в мессенджер до начала работ.</p></div>
+        <div><b>Старые детали</b><p>Отдаём всё, что заменили. Можно забрать или выбросить у нас.</p></div>
+        <div><b>Время по записи</b><p>Приезжаете к назначенному часу и не ждёте в очереди.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="zapis">
+    <div class="wrap book">
+      <div>
+        <h2>Записаться на сервис</h2>
+        <p class="sub">Перезвоним, уточним задачу и подтвердим время.</p>
+        <form id="form" novalidate>
+          <div class="row2">
+            <label>Ваше имя<input name="name" autocomplete="given-name" maxlength="50" required></label>
+            <label>Телефон<input name="phone" type="tel" autocomplete="tel" placeholder="+7 900 123-45-67" required></label>
+          </div>
+          <label>Услуга
+            <select name="service">
+              <option>Замена масла</option><option>Диагностика</option><option>Шиномонтаж</option>
+              <option>Тормозная система</option><option>Плановое ТО</option><option>Другое — опишу ниже</option>
+            </select>
+          </label>
+          <label>Марка, модель и удобная дата<input name="when" placeholder="Например: Kia Rio 2018, в пятницу утром"></label>
+          <label>Что беспокоит<textarea name="comment" maxlength="500" placeholder="Необязательно: стук спереди при торможении…"></textarea></label>
+          <div class="hp" aria-hidden="true"><input name="website" tabindex="-1" autocomplete="off"></div>
+          <p class="err" id="err" role="alert"></p>
+          <button class="btn" type="submit" id="sendBtn">Записаться</button>
+          <p class="agree">Нажимая кнопку, вы соглашаетесь на обработку имени и телефона для записи.</p>
+        </form>
+        <div class="done" id="done" tabindex="-1" hidden>
+          <h3>Вы записаны</h3>
+          <p>Перезвоним в ближайшее время и подтвердим час визита.</p>
+          <button type="button" class="again" id="againBtn">Записать ещё одну машину</button>
+        </div>
+      </div>
+      <aside class="side">
+        <h3>Как доехать</h3>
+        <p><span>Адрес</span>Промышленная, 3, бокс 12</p>
+        <p><span>Часы работы</span>Пн–Сб, 9:00–20:00</p>
+        <p><span>Телефон</span><a href="tel:+79000000004">+7 900 000-00-04</a></p>
+      </aside>
+    </div>
+  </section>
+</main>
+<footer><div class="wrap"><span>Автосервис «Поршень»</span><span>Демо-сайт: сервис вымышленный</span></div></footer>
+<script src="../form.js"></script>
+</body>
+</html>

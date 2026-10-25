@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Кофейня «Зерно» — кофе и десерты на Садовой</title>
+<meta name="description" content="Спешелти-кофе, домашние десерты и бронь столика онлайн. Садовая, 24, ежедневно с 8:00.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&family=Manrope:wght@400;500;700&display=swap">
+<style>
+/* Кофейня: фарфорово-белый и кобальт, как роспись на чашке. Акцент — чашка в первом экране. */
+:root{
+  --porcelain:#F3F5FA; --white:#FFFFFF; --cobalt:#2341A6; --cobalt-soft:#DCE3F6;
+  --espresso:#2E211A; --muted:#6B5E57; --err:#B3261E;
+  --display:"Unbounded",system-ui,sans-serif; --text:"Manrope",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--porcelain);color:var(--espresso);font:400 17px/1.6 var(--text)}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--cobalt);outline-offset:3px}
+.wrap{max-width:1100px;margin:0 auto;padding:0 20px}
+nav{display:flex;justify-content:space-between;align-items:center;padding:24px 0}
+.logo{font:700 22px/1 var(--display);text-decoration:none;color:var(--cobalt)}
+nav .links{display:flex;gap:24px;font-weight:500}
+nav .links a{text-decoration:none}
+nav .links a:hover{color:var(--cobalt)}
+
+.hero{display:grid;grid-template-columns:1.1fr 1fr;gap:48px;align-items:center;padding:40px 0 96px}
+h1{font:700 clamp(36px,4.6vw,60px)/1.08 var(--display);margin:0 0 22px;letter-spacing:-.01em}
+.lead{font-size:19px;color:var(--muted);max-width:40ch;margin:0 0 32px}
+.btn{display:inline-block;background:var(--cobalt);color:var(--white);font:700 17px/1 var(--text);
+  padding:18px 28px;border-radius:999px;border:0;cursor:pointer;text-decoration:none}
+.btn:hover{background:#1A3389}
+.hours{margin-top:28px;color:var(--muted);font-size:15px}
+.hours b{color:var(--espresso)}
+.cup svg{width:100%;max-width:440px;height:auto;display:block;margin-left:auto}
+
+section{padding:88px 0}
+h2{font:700 clamp(28px,3.4vw,40px)/1.1 var(--display);margin:0 0 10px}
+.sub{color:var(--muted);margin:0 0 40px;max-width:52ch}
+
+#menu{background:var(--white)}
+.menu{display:grid;grid-template-columns:1fr 1fr;gap:56px}
+.menu h3{font:500 20px/1 var(--display);color:var(--cobalt);margin:0 0 18px}
+.menu ul{list-style:none;margin:0;padding:0}
+.menu li{display:grid;grid-template-columns:1fr auto;gap:4px 16px;padding:14px 0;border-bottom:1px solid var(--cobalt-soft)}
+.menu li span.p{font-weight:700}
+.menu li small{grid-column:1/-1;color:var(--muted);font-size:14px}
+
+.book{display:grid;grid-template-columns:1.2fr 1fr;gap:56px;align-items:start}
+form{display:grid;gap:16px}
+label{display:grid;gap:6px;font-weight:500;font-size:15px}
+input,select,textarea{font:400 17px/1.4 var(--text);color:var(--espresso);background:var(--white);
+  border:2px solid var(--cobalt-soft);border-radius:14px;padding:13px 16px;width:100%}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--cobalt)}
+textarea{min-height:84px;resize:vertical}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.hp{position:absolute;left:-9999px}
+.err{color:var(--err);font-size:14px;margin:0}
+.agree{font-size:13px;color:var(--muted);margin:0}
+form .btn{justify-self:start}
+.done{background:var(--white);border-radius:20px;padding:28px;border:2px solid var(--cobalt)}
+.done h3{font:700 24px/1.2 var(--display);margin:0 0 8px}
+.done p{margin:0 0 14px}
+.again{background:none;border:0;padding:0;font:700 16px var(--text);color:var(--cobalt);text-decoration:underline;cursor:pointer}
+.visit{background:var(--cobalt);color:var(--white);border-radius:24px;padding:32px}
+.visit h3{font:700 22px/1.2 var(--display);margin:0 0 18px}
+.visit p{margin:0 0 14px}
+.visit p span{display:block;font-size:14px;opacity:.75}
+footer{padding:28px 0;color:var(--muted);font-size:14px}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+
+/* Пар над чашкой — единственная анимация */
+.steam path{animation:rise 4s ease-in-out infinite;opacity:.0}
+.steam path:nth-child(2){animation-delay:1.3s}.steam path:nth-child(3){animation-delay:2.6s}
+@keyframes rise{0%{opacity:0;transform:translateY(10px)}40%{opacity:.7}100%{opacity:0;transform:translateY(-24px)}}
+@media (prefers-reduced-motion:reduce){.steam path{animation:none;opacity:.5}html{scroll-behavior:auto}}
+
+@media (max-width:860px){
+  .hero,.book,.menu{grid-template-columns:1fr}
+  .cup{order:-1}.cup svg{max-width:240px;margin:0 auto}
+  nav .links{display:none}
+  .hero{padding-bottom:64px}
+}
+@media (max-width:520px){.row2{grid-template-columns:1fr}section{padding:64px 0}}
+</style>
+</head>
+<body>
+<header class="wrap">
+  <nav>
+    <a class="logo" href="#">Зерно</a>
+    <div class="links"><a href="#menu">Меню</a><a href="#bron">Бронь столика</a><a href="tel:+79000000001">+7 900 000-00-01</a></div>
+  </nav>
+  <div class="hero">
+    <div>
+      <h1>Кофе, ради которого стоит выйти из дома пораньше</h1>
+      <p class="lead">Свежая обжарка каждую неделю, десерты из нашей кухни и большой стол у окна для работы.</p>
+      <a class="btn" href="#bron">Забронировать столик</a>
+      <p class="hours"><b>Ежедневно 8:00–22:00</b> · Садовая, 24</p>
+    </div>
+    <div class="cup">
+      <svg viewBox="0 0 440 440" role="img" aria-label="Чашка капучино с рисунком сердца, вид сверху">
+        <g class="steam" fill="none" stroke="#2341A6" stroke-width="5" stroke-linecap="round">
+          <path d="M190 70c-14 18 14 30 0 48"/><path d="M220 60c-14 18 14 30 0 48"/><path d="M250 70c-14 18 14 30 0 48"/>
+        </g>
+        <circle cx="220" cy="250" r="170" fill="#FFFFFF" stroke="#DCE3F6" stroke-width="4"/>
+        <g fill="#2341A6">
+          <circle cx="220" cy="98" r="7"/><circle cx="220" cy="402" r="7"/><circle cx="68" cy="250" r="7"/><circle cx="372" cy="250" r="7"/>
+          <circle cx="112" cy="142" r="6"/><circle cx="328" cy="142" r="6"/><circle cx="112" cy="358" r="6"/><circle cx="328" cy="358" r="6"/>
+        </g>
+        <circle cx="220" cy="250" r="128" fill="none" stroke="#2341A6" stroke-width="3" stroke-dasharray="2 12" stroke-linecap="round"/>
+        <rect x="336" y="232" width="74" height="36" rx="18" fill="#FFFFFF" stroke="#2341A6" stroke-width="6"/>
+        <circle cx="220" cy="250" r="112" fill="#FFFFFF" stroke="#2341A6" stroke-width="8"/>
+        <circle cx="220" cy="250" r="98" fill="#8A5A3C"/>
+        <circle cx="220" cy="250" r="98" fill="none" stroke="#6E4329" stroke-width="10"/>
+        <path d="M220 300c-46-30-62-52-62-74a30 30 0 0 1 62-10a30 30 0 0 1 62 10c0 22-16 44-62 74z" fill="#F4E6D8"/>
+      </svg>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section id="menu">
+    <div class="wrap">
+      <h2>Меню</h2>
+      <p class="sub">Зерно обжариваем сами. Молоко можно заменить на овсяное или миндальное без доплаты.</p>
+      <div class="menu">
+        <div>
+          <h3>Кофе</h3>
+          <ul>
+            <li><span>Эспрессо</span><span class="p">160 ₽</span><small>Колумбия, нотки какао и вишни</small></li>
+            <li><span>Капучино</span><span class="p">240 ₽</span><small>300 мл, плотная пена</small></li>
+            <li><span>Флэт уайт</span><span class="p">260 ₽</span><small>двойной эспрессо и тонкий слой молока</small></li>
+            <li><span>Раф лавандовый</span><span class="p">290 ₽</span><small>сливки, лавандовый сироп собственной варки</small></li>
+            <li><span>Фильтр-кофе</span><span class="p">200 ₽</span><small>меняем зерно каждую неделю</small></li>
+          </ul>
+        </div>
+        <div>
+          <h3>К кофе</h3>
+          <ul>
+            <li><span>Круассан</span><span class="p">180 ₽</span><small>сливочное масло 82%, печём утром</small></li>
+            <li><span>Баскский чизкейк</span><span class="p">320 ₽</span><small>карамельная корочка, нежная середина</small></li>
+            <li><span>Морковный торт</span><span class="p">290 ₽</span><small>с грецким орехом и сливочным кремом</small></li>
+            <li><span>Сырники</span><span class="p">350 ₽</span><small>до 12:00, со сметаной и вареньем</small></li>
+            <li><span>Гранола с йогуртом</span><span class="p">270 ₽</span><small>до 12:00</small></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="bron">
+    <div class="wrap book">
+      <div>
+        <h2>Бронь столика</h2>
+        <p class="sub">Оставьте заявку — подтвердим бронь звонком или сообщением.</p>
+        <form id="form" novalidate>
+          <label>Ваше имя<input name="name" autocomplete="given-name" maxlength="50" required></label>
+          <div class="row2">
+            <label>Телефон<input name="phone" type="tel" autocomplete="tel" placeholder="+7 900 123-45-67" required></label>
+            <label>Столик
+              <select name="service">
+                <option>Столик на 2 гостей</option><option>Столик на 4 гостей</option>
+                <option>Большой стол у окна (до 8)</option><option>Кофе с собой к нужному времени</option>
+              </select>
+            </label>
+          </div>
+          <label>Дата и время<input name="when" placeholder="Например: суббота, 11:00"></label>
+          <label>Пожелания<textarea name="comment" maxlength="500" placeholder="Необязательно: детский стульчик, розетка рядом…"></textarea></label>
+          <div class="hp" aria-hidden="true"><input name="website" tabindex="-1" autocomplete="off"></div>
+          <p class="err" id="err" role="alert"></p>
+          <button class="btn" type="submit" id="sendBtn">Забронировать</button>
+          <p class="agree">Нажимая кнопку, вы соглашаетесь на обработку имени и телефона для брони.</p>
+        </form>
+        <div class="done" id="done" tabindex="-1" hidden>
+          <h3>Бронь принята</h3>
+          <p>Скоро подтвердим её звонком или сообщением.</p>
+          <button type="button" class="again" id="againBtn">Забронировать ещё один столик</button>
+        </div>
+      </div>
+      <aside class="visit">
+        <h3>Ждём в гости</h3>
+        <p><span>Адрес</span>Садовая, 24, первый этаж</p>
+        <p><span>Часы работы</span>Ежедневно 8:00–22:00</p>
+        <p><span>Телефон</span><a href="tel:+79000000001">+7 900 000-00-01</a></p>
+      </aside>
+    </div>
+  </section>
+</main>
+<footer><div class="wrap"><span>Кофейня «Зерно»</span><span>Демо-сайт: заведение вымышленное</span></div></footer>
+<script src="../form.js"></script>
+</body>
+</html>

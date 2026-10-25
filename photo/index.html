@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Фотостудия «Светотень» — портреты, семьи, love story</title>
+<meta name="description" content="Портретная и семейная съёмка в студии и на природе. Готовые фото через 5 дней. Запись на удобную дату.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Forum&family=Commissioner:wght@400;500;600&display=swap">
+<style>
+/* Фотостудия: белый лист, чёрная тушь и плёночный оранжевый. Акцент — диафрагма объектива. */
+:root{
+  --white:#FFFFFF; --ink:#141414; --grey:#6F6F6F; --line:#E6E6E6; --film:#E8590C; --soft:#F4F4F4; --err:#B3261E;
+  --display:"Forum",Georgia,serif; --text:"Commissioner",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--white);color:var(--ink);font:400 17px/1.65 var(--text)}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--film);outline-offset:3px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+nav{display:flex;justify-content:space-between;align-items:baseline;padding:28px 0;border-bottom:1px solid var(--line)}
+.logo{font:400 28px/1 var(--display);text-decoration:none}
+nav a.tel{text-decoration:none;color:var(--grey)}
+
+.hero{display:grid;grid-template-columns:1.15fr 1fr;gap:56px;align-items:center;padding:72px 0 96px}
+h1{font:400 clamp(44px,6vw,80px)/1.02 var(--display);margin:0 0 26px}
+.lead{font-size:19px;color:var(--grey);max-width:40ch;margin:0 0 34px}
+.btn{display:inline-block;background:var(--ink);color:var(--white);font:500 17px/1 var(--text);
+  padding:18px 30px;border:0;cursor:pointer;text-decoration:none}
+.btn:hover{background:var(--film)}
+.aperture svg{width:100%;max-width:420px;display:block;margin-left:auto}
+.aperture .blades{transform-origin:210px 210px;animation:turn 30s linear infinite}
+@keyframes turn{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.aperture .blades{animation:none}html{scroll-behavior:auto}}
+
+section{padding:88px 0;border-top:1px solid var(--line)}
+h2{font:400 clamp(36px,4.4vw,54px)/1.05 var(--display);margin:0 0 12px}
+.sub{color:var(--grey);margin:0 0 44px;max-width:54ch}
+
+.packs{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--line)}
+.pack{padding:32px 28px;border-right:1px solid var(--line)}
+.pack:last-child{border-right:0}
+.pack h3{font:400 30px/1.1 var(--display);margin:0 0 6px}
+.pack .price{font:600 22px/1 var(--text);margin:0 0 18px}
+.pack .price span{font-weight:400;font-size:15px;color:var(--grey)}
+.pack ul{margin:0;padding:0 0 0 18px;color:var(--grey)}
+.pack li{margin:6px 0}
+.pack.main{background:var(--soft)}
+.pack.main .price{color:var(--film)}
+
+.get{display:grid;grid-template-columns:repeat(3,1fr);gap:40px}
+.get b{display:block;font:400 26px/1.1 var(--display);margin-bottom:8px}
+.get p{margin:0;color:var(--grey)}
+
+.book{display:grid;grid-template-columns:1.2fr 1fr;gap:64px;align-items:start}
+form{display:grid;gap:18px}
+label{display:grid;gap:6px;font-weight:500;font-size:14px;color:var(--grey)}
+input,select,textarea{font:400 17px/1.4 var(--text);color:var(--ink);background:var(--white);
+  border:0;border-bottom:1px solid #BDBDBD;border-radius:0;padding:10px 0;width:100%}
+input:focus,select:focus,textarea:focus{outline:none;border-bottom:2px solid var(--film)}
+textarea{min-height:80px;resize:vertical}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.hp{position:absolute;left:-9999px}
+.err{color:var(--err);font-size:14px;margin:0}
+.agree{font-size:13px;color:var(--grey);margin:0}
+form .btn{justify-self:start;margin-top:8px}
+.done{border-left:3px solid var(--film);padding:8px 0 8px 22px}
+.done h3{font:400 34px/1.1 var(--display);margin:0 0 8px}
+.done p{margin:0 0 14px;color:var(--grey)}
+.again{background:none;border:0;padding:0;font:500 16px var(--text);text-decoration:underline;cursor:pointer;color:var(--ink)}
+.side h3{font:400 30px/1.1 var(--display);margin:0 0 16px}
+.side p{margin:0 0 14px}
+.side p span{display:block;font-size:14px;color:var(--grey)}
+footer{border-top:1px solid var(--line);padding:26px 0;color:var(--grey);font-size:14px}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+
+@media (max-width:860px){
+  .hero,.book{grid-template-columns:1fr}
+  .aperture{order:-1}.aperture svg{max-width:200px;margin:0}
+  .packs{grid-template-columns:1fr}
+  .pack{border-right:0;border-bottom:1px solid var(--line)}
+  .pack:last-child{border-bottom:0}
+  .get{grid-template-columns:1fr;gap:28px}
+  .hero{padding:40px 0 72px}
+}
+@media (max-width:520px){.row2{grid-template-columns:1fr}section{padding:64px 0}}
+</style>
+</head>
+<body>
+<header class="wrap">
+  <nav><a class="logo" href="#">Светотень</a><a class="tel" href="tel:+79000000003">+7 900 000-00-03</a></nav>
+  <div class="hero">
+    <div>
+      <h1>Фотографии, которые хочется распечатать</h1>
+      <p class="lead">Портреты, семейные и парные съёмки в студии с дневным светом или на природе. Подскажем, что надеть, и поможем расслабиться перед камерой.</p>
+      <a class="btn" href="#zapis">Выбрать дату съёмки</a>
+    </div>
+    <div class="aperture">
+      <svg viewBox="0 0 420 420" role="img" aria-label="Диафрагма объектива">
+        <circle cx="210" cy="210" r="200" fill="#141414"/>
+        <circle cx="210" cy="210" r="186" fill="none" stroke="#3A3A3A" stroke-width="2"/>
+        <g class="blades" fill="#2B2B2B" stroke="#141414" stroke-width="4">
+          <path d="M210 30 L320 120 L250 175 Z"/>
+          <path d="M366 165 L330 300 L265 230 Z"/>
+          <path d="M300 345 L160 360 L200 280 Z"/>
+          <path d="M120 330 L60 200 L150 220 Z"/>
+          <path d="M80 140 L190 60 L180 160 Z"/>
+          <path d="M320 120 L366 165 L265 230 L250 175 Z" fill="#232323"/>
+          <path d="M330 300 L300 345 L200 280 L265 230 Z" fill="#232323"/>
+          <path d="M160 360 L120 330 L150 220 L200 280 Z" fill="#232323"/>
+          <path d="M60 200 L80 140 L180 160 L150 220 Z" fill="#232323"/>
+          <path d="M190 60 L210 30 L250 175 L180 160 Z" fill="#232323"/>
+        </g>
+        <polygon points="250,175 265,230 200,280 150,220 180,160" fill="#E8590C"/>
+        <polygon points="250,175 265,230 200,280 150,220 180,160" fill="#FFFFFF" opacity=".18"/>
+        <circle cx="210" cy="210" r="200" fill="none" stroke="#E8590C" stroke-width="3"/>
+      </svg>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section id="ceny">
+    <div class="wrap">
+      <h2>Съёмки и цены</h2>
+      <p class="sub">Цена включает обработку. Аренда студии на время съёмки — уже внутри.</p>
+      <div class="packs">
+        <div class="pack">
+          <h3>Портрет</h3>
+          <p class="price">5 000 ₽ <span>· 1 час</span></p>
+          <ul><li>15 фото в обработке</li><li>все удачные кадры в цвете</li><li>помощь с позированием</li></ul>
+        </div>
+        <div class="pack main">
+          <h3>Семья</h3>
+          <p class="price">8 000 ₽ <span>· 1,5 часа</span></p>
+          <ul><li>30 фото в обработке</li><li>съёмка в студии или парке</li><li>можно с питомцем</li></ul>
+        </div>
+        <div class="pack">
+          <h3>Love story</h3>
+          <p class="price">10 000 ₽ <span>· 2 часа</span></p>
+          <ul><li>40 фото в обработке</li><li>две локации</li><li>слайд-шоу с музыкой</li></ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <h2>Что вы получите</h2>
+      <p class="sub">Без долгого ожидания и без доплат за «исходники».</p>
+      <div class="get">
+        <div><b>Через 5 дней</b><p>Готовые фото в онлайн-галерее: смотреть с телефона и скачивать в полном размере.</p></div>
+        <div><b>Все удачные кадры</b><p>Помимо обработанных — все хорошие снимки съёмки в лёгкой цветокоррекции.</p></div>
+        <div><b>Печать со скидкой</b><p>Фотокниги и печать в партнёрской лаборатории — минус 15%.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="zapis">
+    <div class="wrap book">
+      <div>
+        <h2>Записаться на съёмку</h2>
+        <p class="sub">Напишем в течение часа и предложим свободные даты.</p>
+        <form id="form" novalidate>
+          <div class="row2">
+            <label>Ваше имя<input name="name" autocomplete="given-name" maxlength="50" required></label>
+            <label>Телефон<input name="phone" type="tel" autocomplete="tel" placeholder="+7 900 123-45-67" required></label>
+          </div>
+          <div class="row2">
+            <label>Съёмка
+              <select name="service"><option>Портрет</option><option>Семья</option><option>Love story</option><option>Другое</option></select>
+            </label>
+            <label>Желаемая дата<input name="when" placeholder="Например: 15 ноября"></label>
+          </div>
+          <label>Расскажите об идее<textarea name="comment" maxlength="500" placeholder="Необязательно: настроение, место, сколько человек"></textarea></label>
+          <div class="hp" aria-hidden="true"><input name="website" tabindex="-1" autocomplete="off"></div>
+          <p class="err" id="err" role="alert"></p>
+          <button class="btn" type="submit" id="sendBtn">Записаться</button>
+          <p class="agree">Нажимая кнопку, вы соглашаетесь на обработку имени и телефона для связи.</p>
+        </form>
+        <div class="done" id="done" tabindex="-1" hidden>
+          <h3>Заявка отправлена</h3>
+          <p>Напишем в течение часа и предложим свободные даты.</p>
+          <button type="button" class="again" id="againBtn">Записать ещё одну съёмку</button>
+        </div>
+      </div>
+      <aside class="side">
+        <h3>Студия</h3>
+        <p><span>Адрес</span>Набережная, 7, 4 этаж, окна на реку</p>
+        <p><span>Работаем</span>Вт–Вс, 10:00–20:00 по записи</p>
+        <p><span>Телефон</span><a href="tel:+79000000003">+7 900 000-00-03</a></p>
+      </aside>
+    </div>
+  </section>
+</main>
+<footer><div class="wrap"><span>Фотостудия «Светотень»</span><span>Демо-сайт: студия вымышленная</span></div></footer>
+<script src="../form.js"></script>
+</body>
+</html>

@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>«Мастер рядом» — мелкий ремонт по дому за один визит</title>
+<meta name="description" content="Повесим, соберём, починим. Сантехника, электрика, сборка мебели. Приезд в день заявки, оплата после работы.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Russo+One&family=Golos+Text:wght@400;500;700&display=swap">
+<style>
+/* Мастер на час: сигнальный жёлтый и графит, как рулетка и инструмент. Акцент — шкала рулетки. */
+:root{
+  --yellow:#FFC629; --graphite:#25282D; --steel:#3A3F46; --paper:#F6F6F4; --white:#FFFFFF;
+  --muted:#5D636B; --err:#C4281C;
+  --display:"Russo One","Arial Black",sans-serif; --text:"Golos Text",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--graphite);font:400 17px/1.6 var(--text)}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--graphite);outline-offset:3px}
+.wrap{max-width:1100px;margin:0 auto;padding:0 20px}
+
+.hero{background:var(--yellow);position:relative;padding-bottom:64px}
+.hero-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:32px;align-items:center}
+.tools svg{width:100%;max-width:360px;display:block;margin-left:auto}
+.top{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:22px 0 64px;flex-wrap:wrap}
+.logo{font:400 24px/1 var(--display);text-decoration:none}
+.top a.tel{font:700 20px/1 var(--text);text-decoration:none}
+h1{font:400 clamp(38px,6vw,76px)/1.02 var(--display);margin:0 0 24px;max-width:15ch}
+.lead{font-size:20px;max-width:44ch;margin:0 0 32px}
+.btn{display:inline-block;background:var(--graphite);color:var(--white);font:700 18px/1 var(--text);
+  padding:19px 30px;border-radius:4px;border:0;cursor:pointer;text-decoration:none}
+.btn:hover{background:#000}
+.promise{display:flex;gap:32px;flex-wrap:wrap;margin-top:40px;font-weight:500}
+.promise div{border-left:4px solid var(--graphite);padding-left:12px}
+/* Шкала рулетки по нижнему краю */
+.tape{position:absolute;left:0;right:0;bottom:0;height:40px;background:
+  repeating-linear-gradient(90deg,var(--graphite) 0 2px,transparent 2px 100px) bottom/100% 40px no-repeat,
+  repeating-linear-gradient(90deg,var(--graphite) 0 2px,transparent 2px 50px) bottom/100% 26px no-repeat,
+  repeating-linear-gradient(90deg,var(--graphite) 0 1px,transparent 1px 10px) bottom/100% 14px no-repeat;
+  border-top:2px solid var(--graphite)}
+
+section{padding:88px 0}
+h2{font:400 clamp(30px,4vw,46px)/1.05 var(--display);margin:0 0 12px}
+.sub{color:var(--muted);margin:0 0 40px;max-width:54ch}
+
+.prices{display:grid;grid-template-columns:repeat(2,1fr);gap:0 56px}
+.prices h3{font:700 15px/1 var(--text);color:var(--muted);margin:28px 0 8px;letter-spacing:.02em}
+.prices ul{list-style:none;margin:0;padding:0}
+.prices li{display:flex;justify-content:space-between;gap:16px;padding:12px 0;border-bottom:2px solid #E4E4E0}
+.prices li b{white-space:nowrap}
+
+#steps{background:var(--graphite);color:var(--white)}
+#steps .sub{color:#B9BEC5}
+.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:28px;counter-reset:s}
+.steps li{counter-increment:s;border-top:4px solid var(--yellow);padding-top:16px}
+.steps li::before{content:counter(s);display:block;font:400 40px/1 var(--display);color:var(--yellow);margin-bottom:10px}
+.steps b{display:block;font-size:19px;margin-bottom:4px}
+.steps span{color:#B9BEC5;font-size:15px}
+
+.book{display:grid;grid-template-columns:1.2fr 1fr;gap:56px;align-items:start}
+form{display:grid;gap:16px}
+label{display:grid;gap:6px;font-weight:500;font-size:15px}
+input,select,textarea{font:400 17px/1.4 var(--text);color:var(--graphite);background:var(--white);
+  border:2px solid #D6D7D2;border-radius:4px;padding:13px 15px;width:100%}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--graphite);box-shadow:0 0 0 3px var(--yellow)}
+textarea{min-height:96px;resize:vertical}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.hp{position:absolute;left:-9999px}
+.err{color:var(--err);font-size:14px;margin:0}
+.agree{font-size:13px;color:var(--muted);margin:0}
+form .btn{justify-self:start;background:var(--yellow);color:var(--graphite)}
+form .btn:hover{background:#FFB800}
+.done{background:var(--yellow);padding:28px;border-radius:4px}
+.done h3{font:400 28px/1.1 var(--display);margin:0 0 8px}
+.done p{margin:0 0 14px}
+.again{background:none;border:0;padding:0;font:700 16px var(--text);text-decoration:underline;cursor:pointer;color:var(--graphite)}
+.side{border:2px solid var(--graphite);border-radius:4px;padding:28px}
+.side h3{font:400 24px/1.1 var(--display);margin:0 0 14px}
+.side p{margin:0 0 12px}
+.side .big{font:700 26px/1.2 var(--text);text-decoration:none;display:block;margin-bottom:6px}
+footer{background:var(--graphite);color:#B9BEC5;font-size:14px;padding:26px 0}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+
+@media (max-width:860px){
+  .prices,.book,.hero-grid{grid-template-columns:1fr}
+  .tools{display:none}
+  .steps{grid-template-columns:1fr 1fr}
+  .top{padding-bottom:40px}
+}
+@media (max-width:520px){.row2,.steps{grid-template-columns:1fr}section{padding:64px 0}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="wrap">
+    <div class="top">
+      <a class="logo" href="#">МАСТЕР РЯДОМ</a>
+      <a class="tel" href="tel:+79000000002">+7 900 000-00-02</a>
+    </div>
+    <div class="hero-grid">
+    <div>
+    <h1>Повесим, соберём, починим за один визит</h1>
+    <p class="lead">Мелкий ремонт по дому: от карниза до смесителя. Приедем в день заявки со своим инструментом, оплата после работы.</p>
+    <a class="btn" href="#zayavka">Вызвать мастера</a>
+    <div class="promise">
+      <div>Приезд за 2 часа</div>
+      <div>Цена известна до начала</div>
+      <div>Гарантия 6 месяцев</div>
+    </div>
+    </div>
+    <div class="tools" aria-hidden="true">
+      <svg viewBox="0 0 360 360">
+        <!-- гаечный ключ -->
+        <g transform="rotate(45 180 180)">
+          <rect x="166" y="96" width="28" height="220" rx="12" fill="#25282D"/>
+          <circle cx="180" cy="80" r="50" fill="#25282D"/>
+          <rect x="164" y="22" width="32" height="56" rx="3" fill="#FFC629"/>
+          <circle cx="180" cy="300" r="22" fill="#25282D"/>
+          <circle cx="180" cy="300" r="10" fill="#FFC629"/>
+        </g>
+        <!-- молоток -->
+        <g transform="rotate(-45 180 180)">
+          <rect x="169" y="96" width="22" height="236" rx="9" fill="#3A3F46"/>
+          <rect x="164" y="262" width="32" height="74" rx="12" fill="#25282D"/>
+          <rect x="108" y="44" width="144" height="56" rx="8" fill="#25282D"/>
+          <rect x="244" y="52" width="20" height="40" rx="4" fill="#25282D"/>
+        </g>
+      </svg>
+    </div>
+    </div>
+  </div>
+  <div class="tape" aria-hidden="true"></div>
+</header>
+
+<main>
+  <section id="price">
+    <div class="wrap">
+      <h2>Цены</h2>
+      <p class="sub">Окончательную сумму мастер называет на месте до начала работы. Выезд по городу — бесплатно при заказе от 1 500 ₽.</p>
+      <div class="prices">
+        <div>
+          <h3>Сантехника</h3>
+          <ul>
+            <li><span>Замена смесителя</span><b>от 1 200 ₽</b></li>
+            <li><span>Установка унитаза</span><b>от 2 500 ₽</b></li>
+            <li><span>Устранение протечки</span><b>от 800 ₽</b></li>
+          </ul>
+          <h3>Электрика</h3>
+          <ul>
+            <li><span>Замена розетки или выключателя</span><b>от 400 ₽</b></li>
+            <li><span>Установка люстры</span><b>от 1 000 ₽</b></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Мебель</h3>
+          <ul>
+            <li><span>Сборка шкафа</span><b>от 2 000 ₽</b></li>
+            <li><span>Сборка кровати</span><b>от 1 500 ₽</b></li>
+          </ul>
+          <h3>По дому</h3>
+          <ul>
+            <li><span>Повесить карниз или полку</span><b>от 600 ₽</b></li>
+            <li><span>Повесить телевизор на стену</span><b>от 1 200 ₽</b></li>
+            <li><span>Врезка замка</span><b>от 1 500 ₽</b></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="steps">
+    <div class="wrap">
+      <h2>Как это работает</h2>
+      <p class="sub">Без предоплаты и сюрпризов в чеке.</p>
+      <ol class="steps">
+        <li><b>Заявка</b><span>Оставляете на сайте или звоните</span></li>
+        <li><b>Звонок</b><span>Уточняем задачу и время приезда</span></li>
+        <li><b>Работа</b><span>Мастер называет цену и делает</span></li>
+        <li><b>Оплата</b><span>Наличными или переводом после работы</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="zayavka">
+    <div class="wrap book">
+      <div>
+        <h2>Вызвать мастера</h2>
+        <p class="sub">Перезвоним в течение 10 минут с 8:00 до 22:00.</p>
+        <form id="form" novalidate>
+          <div class="row2">
+            <label>Ваше имя<input name="name" autocomplete="given-name" maxlength="50" required></label>
+            <label>Телефон<input name="phone" type="tel" autocomplete="tel" placeholder="+7 900 123-45-67" required></label>
+          </div>
+          <label>Что нужно
+            <select name="service">
+              <option>Сантехника</option><option>Электрика</option><option>Сборка мебели</option>
+              <option>Повесить, закрепить</option><option>Другое — опишу ниже</option>
+            </select>
+          </label>
+          <label>Район и удобное время<input name="when" placeholder="Например: Центральный, сегодня после 18:00"></label>
+          <label>Подробнее о задаче<textarea name="comment" maxlength="500" placeholder="Например: капает смеситель на кухне"></textarea></label>
+          <div class="hp" aria-hidden="true"><input name="website" tabindex="-1" autocomplete="off"></div>
+          <p class="err" id="err" role="alert"></p>
+          <button class="btn" type="submit" id="sendBtn">Вызвать мастера</button>
+          <p class="agree">Нажимая кнопку, вы соглашаетесь на обработку имени и телефона для связи.</p>
+        </form>
+        <div class="done" id="done" tabindex="-1" hidden>
+          <h3>Заявка принята</h3>
+          <p>Перезвоним в течение 10 минут и договоримся о времени.</p>
+          <button type="button" class="again" id="againBtn">Отправить ещё одну заявку</button>
+        </div>
+      </div>
+      <aside class="side">
+        <h3>Срочно?</h3>
+        <p>Звоните — так быстрее:</p>
+        <a class="big" href="tel:+79000000002">+7 900 000-00-02</a>
+        <p>Ежедневно 8:00–22:00, без выходных.</p>
+      </aside>
+    </div>
+  </section>
+</main>
+<footer><div class="wrap"><span>«Мастер рядом»</span><span>Демо-сайт: компания вымышленная</span></div></footer>
+<script src="../form.js"></script>
+</body>
+</html>
