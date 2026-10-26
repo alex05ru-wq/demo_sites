@@ -108,7 +108,7 @@ const DAYS_AHEAD = 10;
 /* ===================================================== */
 
 const tg = window.Telegram ? window.Telegram.WebApp : null;
-const inTelegram = !!(tg && tg.initData);
+const inTelegram = !!(tg && tg.platform && tg.platform !== 'unknown');
 const state = { service: null, day: null, time: null };
 const rub = n => n.toLocaleString('ru-RU') + ' ₽';
 const WD = ['вс','пн','вт','ср','чт','пт','сб'];
