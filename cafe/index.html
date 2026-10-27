@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Кофейня «Зерно» — заказ</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<style>
+/*
+  Telegram Mini App: меню кофейни с корзиной.
+  Цвета берутся из темы Telegram; фирменный акцент кофейни — кобальт.
+*/
+:root{
+  --bg:var(--tg-theme-bg-color,#ffffff);
+  --bg2:var(--tg-theme-secondary-bg-color,#f1f2f6);
+  --text:var(--tg-theme-text-color,#1b1d22);
+  --hint:var(--tg-theme-hint-color,#8a8f99);
+  --btn:var(--tg-theme-button-color,#2f80ed);
+  --btn-text:var(--tg-theme-button-text-color,#ffffff);
+  --cobalt:#2341A6;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;background:var(--bg2);color:var(--text);font:400 16px/1.4 -apple-system,system-ui,"Segoe UI",Roboto,sans-serif;padding-bottom:96px}
+button{font:inherit;color:inherit}
+button:focus-visible{outline:2px solid var(--cobalt);outline-offset:2px}
+
+header{background:var(--bg);padding:16px 16px 0}
+.brand{display:flex;gap:12px;align-items:center;margin-bottom:14px}
+.logo{width:44px;height:44px;border-radius:50%;background:var(--cobalt);display:grid;place-items:center;flex-shrink:0}
+.brand b{display:block;font-size:17px}
+.brand span{color:var(--hint);font-size:14px}
+.tabs{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:12px}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex:0 0 auto;border:0;background:var(--bg2);border-radius:999px;padding:8px 16px;cursor:pointer;font-weight:500}
+.tab[aria-selected="true"]{background:var(--cobalt);color:#fff}
+
+.list{background:var(--bg);margin-top:10px}
+.item{display:grid;grid-template-columns:52px 1fr auto;gap:12px;align-items:center;padding:12px 16px;border-bottom:1px solid var(--bg2)}
+.item:last-child{border-bottom:0}
+.pic{width:52px;height:52px;border-radius:14px;background:var(--bg2);display:grid;place-items:center;font-size:26px}
+.item b{display:block;font-weight:600}
+.item small{display:block;color:var(--hint);font-size:13px;margin:2px 0 4px}
+.item .p{font-weight:600}
+.add{border:0;background:var(--bg2);color:var(--cobalt);border-radius:10px;padding:8px 14px;font-weight:600;cursor:pointer}
+.step{display:flex;align-items:center;gap:10px}
+.step button{width:32px;height:32px;border:0;border-radius:10px;background:var(--cobalt);color:#fff;font-size:20px;line-height:1;cursor:pointer}
+.step span{min-width:18px;text-align:center;font-weight:600}
+
+/* Экран корзины */
+#cartView{display:none}
+.cart .item{grid-template-columns:1fr auto}
+section{background:var(--bg);margin-top:10px;padding:14px 16px}
+h2{font-size:15px;font-weight:600;color:var(--hint);margin:0 0 10px}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{border:2px solid transparent;background:var(--bg2);border-radius:12px;padding:9px 14px;cursor:pointer;font-weight:500}
+.chip[aria-pressed="true"]{border-color:var(--cobalt)}
+textarea{width:100%;min-height:70px;border:0;border-radius:12px;background:var(--bg2);color:var(--text);padding:12px;font:inherit;resize:vertical}
+textarea:focus{outline:2px solid var(--cobalt)}
+.total{display:flex;justify-content:space-between;font-size:18px;font-weight:700}
+.back{border:0;background:none;color:var(--cobalt);font-weight:600;padding:14px 16px 0;cursor:pointer}
+.empty{padding:28px 16px;text-align:center;color:var(--hint)}
+
+.fallback{position:fixed;left:16px;right:16px;bottom:16px;border:0;border-radius:12px;padding:15px;
+  background:var(--btn);color:var(--btn-text);font-weight:600;cursor:pointer;display:none}
+.fallback:disabled{opacity:.45}
+</style>
+</head>
+<body>
+
+<div id="menuView">
+  <header>
+    <div class="brand">
+      <div class="logo" aria-hidden="true">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 9h13v5a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5V9z"/><path d="M17 11h1.5a2.5 2.5 0 0 1 0 5H17"/><path d="M8 3v3M12 3v3"/></svg>
+      </div>
+      <div><b>Кофейня «Зерно»</b><span>Садовая, 24 · заказ с собой и в зал</span></div>
+    </div>
+    <div class="tabs" id="tabs" role="tablist"></div>
+  </header>
+  <div class="list" id="list"></div>
+</div>
+
+<div id="cartView">
+  <button class="back" id="backBtn" type="button">← Меню</button>
+  <section class="cart"><h2>Ваш заказ</h2><div id="cartList"></div></section>
+  <section><h2>Как получить</h2><div class="chips" id="howChips"></div></section>
+  <section><h2>Когда приготовить</h2><div class="chips" id="whenChips"></div></section>
+  <section><h2>Комментарий</h2><textarea id="comment" maxlength="300" placeholder="Например: без сахара, на миндальном молоке"></textarea></section>
+  <section><div class="total"><span>Итого</span><span id="total"></span></div></section>
+</div>
+
+<button class="fallback" id="fallbackBtn" type="button"></button>
+
+<script>
+/* ===================== МЕНЮ (меняется здесь) ===================== */
+const MENU = {
+  'Кофе': [
+    { id: 'esp',  icon: '☕', name: 'Эспрессо',        desc: '30 мл',                price: 160 },
+    { id: 'cap',  icon: '☕', name: 'Капучино',        desc: '300 мл',               price: 240 },
+    { id: 'flat', icon: '☕', name: 'Флэт уайт',       desc: '200 мл, двойной',      price: 260 },
+    { id: 'raf',  icon: '🥛', name: 'Раф лавандовый',  desc: '300 мл',               price: 290 },
+  ],
+  'Десерты': [
+    { id: 'chz',  icon: '🍰', name: 'Баскский чизкейк', desc: 'карамельная корочка', price: 320 },
+    { id: 'car',  icon: '🥕', name: 'Морковный торт',   desc: 'с грецким орехом',    price: 290 },
+    { id: 'cro',  icon: '🥐', name: 'Круассан',         desc: 'печём утром',         price: 180 },
+  ],
+  'Завтраки': [
+    { id: 'syr',  icon: '🥞', name: 'Сырники',          desc: 'со сметаной и вареньем', price: 350 },
+    { id: 'gra',  icon: '🥣', name: 'Гранола',          desc: 'с йогуртом и ягодами',   price: 270 },
+  ],
+};
+const HOW = ['С собой', 'В зале'];
+const WHEN = ['Как можно скорее', 'Через 15 мин', 'Через 30 мин', 'Через час'];
+/* ================================================================ */
+
+const tg = window.Telegram ? window.Telegram.WebApp : null;
+const inTelegram = !!(tg && tg.platform && tg.platform !== 'unknown');
+if (inTelegram) { tg.ready(); tg.expand(); }
+
+const ITEMS = Object.values(MENU).flat();
+const cart = {};                        // id -> количество
+const order = { how: HOW[0], when: WHEN[0] };
+let view = 'menu';
+let tab = Object.keys(MENU)[0];
+const rub = n => n.toLocaleString('ru-RU') + ' ₽';
+const haptic = () => inTelegram && tg.HapticFeedback && tg.HapticFeedback.impactOccurred('light');
+
+function count() { return Object.values(cart).reduce((a, b) => a + b, 0); }
+function sum() { return ITEMS.reduce((s, i) => s + (cart[i.id] || 0) * i.price, 0); }
+
+function change(id, d) {
+  cart[id] = Math.max(0, (cart[id] || 0) + d);
+  if (!cart[id]) delete cart[id];
+  haptic();
+  render();
+}
+
+function stepper(it) {
+  const q = cart[it.id] || 0;
+  const box = document.createElement('div');
+  if (!q) {
+    box.innerHTML = '<button class="add" type="button">Добавить</button>';
+    box.firstChild.onclick = () => change(it.id, 1);
+  } else {
+    box.className = 'step';
+    box.innerHTML = '<button type="button" aria-label="Убрать">−</button><span></span><button type="button" aria-label="Добавить">+</button>';
+    box.querySelector('span').textContent = q;
+    const [minus, plus] = box.querySelectorAll('button');
+    minus.onclick = () => change(it.id, -1);
+    plus.onclick = () => change(it.id, 1);
+  }
+  return box;
+}
+
+function itemRow(it, withPic) {
+  const row = document.createElement('div');
+  row.className = 'item';
+  row.innerHTML = (withPic ? '<div class="pic" aria-hidden="true"></div>' : '') + '<div><b></b><small></small><span class="p"></span></div>';
+  if (withPic) row.querySelector('.pic').textContent = it.icon;
+  row.querySelector('b').textContent = it.name;
+  row.querySelector('small').textContent = it.desc;
+  row.querySelector('.p').textContent = withPic ? rub(it.price) : rub(it.price * cart[it.id]);
+  row.appendChild(stepper(it));
+  return row;
+}
+
+function chips(boxId, values, key) {
+  const box = document.getElementById(boxId);
+  box.innerHTML = '';
+  values.forEach(v => {
+    const b = document.createElement('button');
+    b.className = 'chip'; b.type = 'button'; b.textContent = v;
+    b.setAttribute('aria-pressed', String(order[key] === v));
+    b.onclick = () => { order[key] = v; haptic(); render(); };
+    box.appendChild(b);
+  });
+}
+
+function render() {
+  // вкладки и меню
+  const tabs = document.getElementById('tabs');
+  tabs.innerHTML = '';
+  Object.keys(MENU).forEach(name => {
+    const b = document.createElement('button');
+    b.className = 'tab'; b.type = 'button'; b.setAttribute('role', 'tab'); b.textContent = name;
+    b.setAttribute('aria-selected', String(name === tab));
+    b.onclick = () => { tab = name; render(); };
+    tabs.appendChild(b);
+  });
+  const list = document.getElementById('list');
+  list.innerHTML = '';
+  MENU[tab].forEach(it => list.appendChild(itemRow(it, true)));
+
+  // корзина
+  const cartList = document.getElementById('cartList');
+  cartList.innerHTML = '';
+  const inCart = ITEMS.filter(i => cart[i.id]);
+  if (!inCart.length) cartList.innerHTML = '<p class="empty">Корзина пуста</p>';
+  inCart.forEach(it => cartList.appendChild(itemRow(it, false)));
+  chips('howChips', HOW, 'how');
+  chips('whenChips', WHEN, 'when');
+  document.getElementById('total').textContent = rub(sum());
+
+  document.getElementById('menuView').style.display = view === 'menu' ? '' : 'none';
+  document.getElementById('cartView').style.display = view === 'cart' ? 'block' : 'none';
+  if (view === 'cart' && !count()) { view = 'menu'; render(); return; }
+  updateButtons();
+}
+
+function mainText() {
+  if (!count()) return 'Выберите напитки и десерты';
+  return view === 'menu' ? `Корзина · ${count()} шт · ${rub(sum())}` : `Оформить заказ · ${rub(sum())}`;
+}
+
+const fallbackBtn = document.getElementById('fallbackBtn');
+function updateButtons() {
+  if (inTelegram) {
+    tg.MainButton.setText(mainText());
+    tg.MainButton.show();
+    count() ? tg.MainButton.enable() : tg.MainButton.disable();
+    view === 'cart' ? tg.BackButton.show() : tg.BackButton.hide();
+  } else {
+    fallbackBtn.style.display = 'block';
+    fallbackBtn.textContent = mainText();
+    fallbackBtn.disabled = !count();
+  }
+}
+
+function goMenu() { view = 'menu'; render(); window.scrollTo(0, 0); }
+function onMain() {
+  if (!count()) return;
+  if (view === 'menu') { view = 'cart'; render(); window.scrollTo(0, 0); return; }
+  const payload = {
+    type: 'order',
+    items: ITEMS.filter(i => cart[i.id]).map(i => ({ n: i.name, q: cart[i.id], p: i.price })),
+    total: sum(), how: order.how, when: order.when,
+    comment: document.getElementById('comment').value.trim().slice(0, 300),
+  };
+  if (inTelegram) {
+    tg.HapticFeedback && tg.HapticFeedback.notificationOccurred('success');
+    tg.sendData(JSON.stringify(payload));        // бот получит заказ, окно закроется
+  } else {
+    alert('Демо в браузере. В Telegram заказ уйдёт боту:\n' + JSON.stringify(payload, null, 2));
+  }
+}
+
+document.getElementById('backBtn').onclick = goMenu;
+if (inTelegram) {
+  tg.MainButton.onClick(onMain);
+  tg.BackButton.onClick(goMenu);
+} else {
+  fallbackBtn.onclick = onMain;
+}
+render();
+</script>
+</body>
+</html>
