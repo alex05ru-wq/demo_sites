@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>О сервисе — автосервис «Механика 5»</title>
+<meta name="description" content="Как мы работаем: осмотр, согласование цены, фото и видео в чат, старые детали — вам.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Exo+2:wght@600;800&family=Roboto:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="index.html">МЕХАНИКА <i>5</i></a>
+    <button class="menu-toggle" id="menuBtn" aria-expanded="false" aria-controls="nav">Меню</button>
+    <nav class="nav" id="nav" aria-label="Основное меню">
+      <a href="index.html">Главная</a>
+      <a href="uslugi.html">Услуги и цены</a>
+      <a href="o-servise.html" aria-current="page">О сервисе</a>
+      <a href="kontakty.html">Контакты</a>
+      <a class="tel" href="tel:+79000000004">+7 900 000-00-04</a>
+      <a class="btn-sm" href="zapis.html">Записаться</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="page-head">
+  <div class="wrap"><h1>О сервисе</h1><p>Небольшой автосервис, где мастер сам объясняет, что сломалось, а не только выставляет счёт.</p></div>
+</section>
+<section>
+  <div class="wrap">
+    <div class="facts">
+      <div><b>4</b><span>подъёмника и стенд развал-схождения</span></div>
+      <div><b>12</b><span>месяцев гарантии на работы</span></div>
+      <div><b>6</b><span>дней в неделю, с 9 до 20</span></div>
+      <div><b>0</b><span>скрытых доплат в чеке</span></div>
+    </div>
+    <div class="two">
+      <div>
+        <h2>Как мы работаем</h2>
+        <p>Мы не делаем ничего без вашего согласия. Сначала осмотр и понятный список работ с ценами, потом ремонт.</p>
+        <p>Если по ходу находим что-то ещё — звоним, показываем фото или видео и ждём решения. Можно отложить необязательный ремонт на потом: подскажем, что срочно, а что подождёт.</p>
+      </div>
+      <ol class="steps">
+        <li><div><b>Запись</b><span>На сайте или по телефону — на удобное время.</span></div></li>
+        <li><div><b>Осмотр</b><span>Мастер проверяет машину и составляет список работ.</span></div></li>
+        <li><div><b>Согласование</b><span>Присылаем цену и фото, ремонтируем только то, что одобрили.</span></div></li>
+        <li><div><b>Выдача</b><span>Отдаём машину, старые детали и заказ-наряд с гарантией.</span></div></li>
+      </ol>
+    </div>
+  </div>
+</section>
+<section class="white">
+  <div class="wrap">
+    <h2>Мастера</h2>
+    <p class="sub">Небольшая команда, где каждый отвечает за свою работу.</p>
+    <div class="team">
+      <div><span class="avatar" aria-hidden="true">С</span><h3>Сергей</h3><p>Старший мастер, диагностика и электрика</p></div>
+      <div><span class="avatar" aria-hidden="true">А</span><h3>Андрей</h3><p>Ходовая, тормоза, развал-схождение</p></div>
+      <div><span class="avatar" aria-hidden="true">Д</span><h3>Дмитрий</h3><p>ТО, шиномонтаж, хранение шин</p></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="cols">
+      <div><b>Автосервис «Механика 5»</b>ТО, диагностика, ремонт и шиномонтаж легковых автомобилей. Работаем по записи, без очередей.</div>
+      <div><b>Страницы</b><ul><li><a href="index.html">Главная</a></li><li><a href="uslugi.html">Услуги и цены</a></li><li><a href="o-servise.html">О сервисе</a></li><li><a href="zapis.html">Запись</a></li><li><a href="kontakty.html">Контакты</a></li></ul></div>
+      <div><b>Контакты</b><ul><li><a href="tel:+79000000004">+7 900 000-00-04</a></li><li>Промышленная, 3, бокс 12</li><li>Пн–Сб, 9:00–20:00</li></ul></div>
+    </div>
+    <div class="bottom"><span>© Автосервис «Механика 5»</span><span>Демо-сайт: сервис вымышленный</span></div>
+  </div>
+</footer>
+<script>
+  // Кнопка «Меню» на телефоне
+  const menuBtn = document.getElementById('menuBtn'), nav = document.getElementById('nav');
+  menuBtn.addEventListener('click', () => {
+    const open = nav.classList.toggle('open');
+    menuBtn.setAttribute('aria-expanded', open);
+    menuBtn.textContent = open ? 'Закрыть' : 'Меню';
+  });
+</script>
+
+</body>
+</html>
